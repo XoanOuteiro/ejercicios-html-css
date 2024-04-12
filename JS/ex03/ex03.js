@@ -1,10 +1,17 @@
-setInterval(() => {
-    var currentdate = new Date(); 
-    var datetime =  currentdate.getDate() + "/"
+let divitem = document.getElementById("contenido");
+
+function act(){
+    let currentdate = new Date(); 
+    let datetime =  currentdate.getDate() + "/"
                     + (currentdate.getMonth()+1)  + "/" 
-                    + currentdate.getFullYear() + " @ "  
+                    + currentdate.getFullYear() + " "  
                     + currentdate.getHours() + ":"  
                     + currentdate.getMinutes() + ":" 
                     + currentdate.getSeconds();
-    document.getElementById("contenido").innerText = datetime;
+    divitem.innerText = datetime
+}
+
+act()
+setInterval(() => {
+    act()
 }, 1000); 
