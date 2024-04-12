@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="ex05.js" defer></script>
+    </head>
+    <body>
+        <p>Alarma</p>
+        <div>
+            <label for="ammount">Segundos: </label>
+            <input type="number" id="ammount">
+            <button id="aceptar" onclick="startAlarm()">Crear</button>
+            <button id="posponer" onclick="snoozeAlarm()" disabled>Posponer</button>
+            <button id="parar" onclick="stopAlarm()" disabled>Parar</button>
+        </div>
+        <p id="display"></p>
+    </body>
+</html>
