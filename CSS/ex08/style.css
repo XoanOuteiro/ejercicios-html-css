@@ -1,0 +1,7 @@
+.container{
+    background: url("renfe.jpg");
+    background-size: contain;
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+}
