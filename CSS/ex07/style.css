@@ -1,0 +1,58 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    border: 3px solid black;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+.grid-item {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    transform: rotate(0deg);
+}
+.grid-item:nth-child(1) {
+    border-right: 3px solid black;
+}
+.grid-item:nth-child(2) {
+    border-right: 3px dashed green;
+}
+.grid-item:nth-child(3) {
+    border-right: 3px dotted blue;
+}
+.grid-item:nth-child(4) {
+    border-right: 3px double orange;
+}
+.grid-item:nth-child(5) {
+    border-right: 3px groove purple;
+}
+.bordered {
+    border: 2px solid black;
+    background-color: green;
+    cursor: cell;
+}
+.rounded {
+    border-radius: 50%;
+    border: 2px solid black;
+    background-color: orange;
+    cursor: grab;
+}
+
+.checkbox-toggle {
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+    cursor: pointer; 
+}
+
+.grid-item:has(:checked){
+    transform: rotate(45deg)
+}
+
+.grid-item:hover{
+    transform: translate(0, -10px);
+}
