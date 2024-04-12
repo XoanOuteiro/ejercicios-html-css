@@ -1,47 +1,68 @@
-let countdown;
-let audio = new Audio('no_tengo_audio_aqui.mp3'); 
-let seconds = 0
+let intervalId;
+let isAlarmSounding = false;
+const audio = new Audio('alarm.mp3');
 
 function startAlarm() {
-    seconds = document.getElementById("ammount").value;
-    let display = document.getElementById("display");
-    let aceptarBtn = document.getElementById("aceptar");
-    let posponerBtn = document.getElementById("posponer");
-    let pararBtn = document.getElementById("parar");
+    const ammount = document.getElementById('ammount').value;
+    const targetTime = new Date(Date.now() + ammount * 1000); // target datetime
 
-    display.textContent = `Alarma en ${seconds} segundos`;
+    document.getElementById('aceptar').disabled = true;
 
-    countdown = setInterval(() => {
-        seconds--;
-
-        if (seconds < 0) {
-            display.textContent = "La alarma está sonando";
-            audio.loop = true;
-            audio.play();
-            clearInterval(countdown);
-            aceptarBtn.disabled = false;
-            posponerBtn.disabled = true;
-            pararBtn.disabled = true;
+    intervalId = setInterval(() => {
+        const currentTime = new Date();
+        if (currentTime >= targetTime) {
+            soundAlarm();
         } else {
-            display.textContent = `Alarma en ${seconds} segundos`;
+            updateDisplay(targetTime - currentTime);
         }
-    }, 1000);
+    }, 250);
+}
 
-    aceptarBtn.disabled = true;
-    posponerBtn.disabled = false;
-    pararBtn.disabled = false;
+function soundAlarm() {
+    clearInterval(intervalId);
+    isAlarmSounding = true;
+    document.getElementById('posponer').disabled = false;
+    document.getElementById('parar').disabled = false;
+    document.getElementById('display').innerText = 'Alarma sonando';
+    audio.play();
 }
 
 function snoozeAlarm() {
-    seconds += 10
+    if (isAlarmSounding) {
+        audio.pause();
+        audio.currentTime = 0;
+        clearInterval(intervalId);
+
+        const snoozeTime = new Date(Date.now() + 15000); // 15 seconds
+        intervalId = setInterval(() => {
+            const currentTime = new Date();
+            if (currentTime >= snoozeTime) {
+                soundAlarm();
+            } else {
+                updateDisplay(snoozeTime - currentTime);
+            }
+        }, 1000);
+
+        document.getElementById('posponer').disabled = true;
+    }
 }
 
 function stopAlarm() {
-    clearInterval(countdown);
-    audio.pause();
-    document.getElementById("display").textContent = "";
-    document.getElementById("ammount").value = "";
-    document.getElementById("aceptar").disabled = false;
-    document.getElementById("posponer").disabled = true;
-    document.getElementById("parar").disabled = true;
+    if (isAlarmSounding) {
+        clearInterval(intervalId);
+        isAlarmSounding = false;
+        document.getElementById('aceptar').disabled = false;
+        document.getElementById('posponer').disabled = true;
+        document.getElementById('parar').disabled = true;
+        document.getElementById('display').innerText = 'Alarma detenida';
+        audio.pause();
+        audio.currentTime = 0;
+    }
+}
+
+function updateDisplay(remainingTime) {
+    const minutes = Math.floor(remainingTime / 60000);
+    const seconds = Math.floor((remainingTime % 60000) / 1000);
+
+    document.getElementById('display').innerText = `Tiempo restante: ${minutes} minutos ${seconds} segundos`;
 }
