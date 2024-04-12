@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.square {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    cursor: pointer;
+}
+.colored1 { background-color: red; }
+.colored2 { background-color: blue; }
+.colored3 { background-color: green; }
+.colored4 { background-color: yellow; }
+.colored5 { background-color: purple; }
+.end {
+    justify-content: flex-end;
+}
+.space-between {
+    justify-content: space-between;
+}
+.space-around {
+    justify-content: space-around;
+}
+.reverse {
+    flex-direction: row-reverse;
+}
